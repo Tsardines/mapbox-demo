@@ -1,0 +1,22 @@
+{
+  "name": "mapbox-demo",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Tsardines/mapbox-demo.git"
+  },
+  "author": "haley sulcer",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Tsardines/mapbox-demo/issues"
+  },
+  "homepage": "https://github.com/Tsardines/mapbox-demo#readme",
+  "description": "",
+  "dependencies": {
+    "mapbox-gl": "^1.6.0"
+  }
+}
