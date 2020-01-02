@@ -1,54 +1,98 @@
-mapboxgl.accessToken = "pk.eyJ1IjoidHNhcmRpbmVzIiwiYSI6ImNrNGE2YTAxcTAwdnYzbHJ1MXcyY2Y1d2MifQ.t6og8BTQXs-4lr2AvHcycw";
+mapboxgl.accessToken = "pk.eyJ1IjoidHNhcmRpbmVzIiwiYSI6ImNrNG9vNHJvczNma3Qza282anE3eWcwczMifQ.StkJPwbsd7CQfdI5O3dKcg"
   let map = new mapboxgl.Map({
     container: "map",
-    style: "mapbox://styles/mapbox/streets-v1",
+    style: 'mapbox://styles/mapbox/streets-v11',
     center: [55.9508, 3.3615],
     zoom: 15.5,
     bearing: 27,
     pitch: 45
   })
 
-  let places = {
-    "airport": {
-      bearing: 27,
-      center: [55.9508, 3.3615],
-      zoom: 15.5,
-      pitch: 0
-    },
-    "city-center": {
-      duration: 6000,
-      center: [55.9533, 3.1883],
-      bearing: 150,
-      zoom: 15,
-      pitch: 0
-    }
+  map.on('error', e => {
+    // Hide those annoying non-error errors
+    if (e && e.error !== 'Error: Not Found')
+        console.error(e);
+});
+
+var chapters = {
+  'baker': {
+  bearing: 27,
+  center: [-0.15591514, 51.51830379],
+  zoom: 15.5,
+  pitch: 20
+  },
+  'aldgate': {
+  duration: 6000,
+  center: [-0.07571203, 51.51424049],
+  bearing: 150,
+  zoom: 15,
+  pitch: 0
+  },
+  'london-bridge': {
+  bearing: 90,
+  center: [-0.08533793, 51.50438536],
+  zoom: 13,
+  speed: 0.6,
+  pitch: 40
+  },
+  'woolwich': {
+  bearing: 90,
+  center: [0.05991101, 51.48752939],
+  zoom: 12.3
+  },
+  'gloucester': {
+  bearing: 45,
+  center: [-0.18335806, 51.49439521],
+  zoom: 15.3,
+  pitch: 20,
+  speed: 0.5
+  },
+  'caulfield-gardens': {
+  bearing: 180,
+  center: [-0.19684993, 51.5033856],
+  zoom: 12.3
+  },
+  'telegraph': {
+  bearing: 90,
+  center: [-0.10669358, 51.51433123],
+  zoom: 17.3,
+  pitch: 40
+  },
+  'charing-cross': {
+  bearing: 90,
+  center: [-0.12416858, 51.50779757],
+  zoom: 14.3,
+  pitch: 20
+  }
   };
 
-  window.onscroll = function() {
-    let placeNames = Object.keys(places);
-    for (var i = 0; i < placeNames.length; i++) {
-      if (isElementOnScreen(placeName)) {
-        setActivePlace(placeName);
+  // On every scroll event, check which element is on screen
+window.onscroll = function() {
+  var chapterNames = Object.keys(chapters);
+    for (var i = 0; i < chapterNames.length; i++) {
+    var chapterName = chapterNames[i];
+      if (isElementOnScreen(chapterName)) {
+        setActiveChapter(chapterName);
         break;
       }
     }
+  };
+   
+  var activeChapterName = 'baker';
+  function setActiveChapter(chapterName) {
+    if (chapterName === activeChapterName) return;
+    
+    map.flyTo(chapters[chapterName]);
+    
+    document.getElementById(chapterName).setAttribute('class', 'active');
+    document.getElementById(activeChapterName).setAttribute('class', '');
+    
+    activeChapterName = chapterName;
   }
-
-  let activePlaceName = "airport";
-  function setActivePlace(placeName) {
-    if (placeName === activePlaceName) return;
-    
-    map.flyTo(places[placeName]);
-    
-    document.getElementById(placeName).setAttribute("class", "active");
-    document.getElementById(activePlaceName).setAttribute("class", "");
-    
-    activePlaceName = placeName;
-  }
-
+   
   function isElementOnScreen(id) {
-    let element = document.getElementById(id),
-        bounds = element.getBoundingClientRect();
+    var element = document.getElementById(id);
+    var bounds = element.getBoundingClientRect();
     return bounds.top < window.innerHeight && bounds.bottom > 0;
   }
 

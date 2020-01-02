@@ -1,38 +1,197 @@
-<!doctype html>
-
-<html lang="en">
+<!DOCTYPE html>
+<html>
 <head>
-  <meta charset="utf-8">
+<meta charset="utf-8" />
+<title>Fly to a location based on scroll position</title>
+<meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
+<script src="https://api.tiles.mapbox.com/mapbox-gl-js/v1.6.1/mapbox-gl.js"></script>
+<link href="https://api.tiles.mapbox.com/mapbox-gl-js/v1.6.1/mapbox-gl.css" rel="stylesheet" />
 
-  <title></title>
-  <meta name="description" content="">
-  <meta name="author" content="SitePoint">
-
-  
-
-  <script src='https://api.mapbox.com/mapbox-gl-js/v0.34.0/mapbox-gl.js'></script>
-  <link href='https://api.mapbox.com/mapbox-gl-js/v0.34.0/mapbox-gl.css' rel='stylesheet' />
-
-  <link rel="stylesheet" href="styles.css">
+<style>
+	body { margin: 0; padding: 0; }
+	#map { position: absolute; top: 0; bottom: 0; width: 100%; };
+</style>
 
 </head>
-
 <body>
-    <body>
-        <div id="map"></div>
-        <div id="features">
-          <section id="airport" class="active">
-            <h3>Edinburgh Airport</h3>
-            <p>Airport info goes here</p>
-          </section>
-          <section id="city-centre">
-            <h3>Edinburgh City Centre</h3>
-            <p>City centre info goes here</p>
-          </section>
-        </div>
-      </body>
-  <script src="script.js"></script>
+
+<style>
+    #map {
+      position: fixed;
+      width: 60%;
+    }
+  
+    #features {
+      width: 40%;
+      margin-left: 60%;
+      font-family: sans-serif;
+      overflow-y: scroll;
+      background-color: #fafafa;
+    }
+  
+    section {
+      padding: 25px 50px;
+      line-height: 25px;
+      border-bottom: 1px solid #ddd;
+      opacity: 0.25;
+      font-size: 13px;
+    }
+  
+    section.active {
+      opacity: 1;
+    }
+  
+    section:last-child {
+      border-bottom: none;
+      margin-bottom: 200px;
+    }
+</style>
+
+
+<div id="map"></div>
+<div id="features">
+    <section id="airport" class="active">
+        <h3>Edinburgh Airport</h3>
+        <p>
+            Kanji realism Legba apophenia dolphin Shibuya savant tattoo boy plastic franchise alcohol otaku otaku towards woman. computer augmented reality knife A.I. dolphin corporation Shibuya neon semiotics towards long-chain hydrocarbons kanji wristwatch dolphin film. cartel engine geodesic sentient post- into disposable paranoid saturation point fluidity numinous j-pop weathered franchise cardboard. receding film numinous fluidity A.I. towards drugs face forwards plastic chrome Legba futurity office denim ablative. 
+        </p>
+    </section>
+    <section id="city-centre">
+        <h3>City Centre</h3>
+        <p>
+          Kanji realism Legba apophenia dolphin Shibuya savant tattoo boy plastic franchise alcohol otaku otaku towards woman. computer augmented reality knife A.I. dolphin corporation Shibuya neon semiotics towards long-chain hydrocarbons kanji wristwatch dolphin film. cartel engine geodesic sentient post- into disposable paranoid saturation point fluidity numinous j-pop weathered franchise cardboard. receding film numinous fluidity A.I. towards drugs face forwards plastic chrome Legba futurity office denim ablative. 
+      </p>
+    </section>
+    <section id="edinburgh-castle">
+    <h3>Edinburgh Castle</h3>
+    <p>
+      Kanji realism Legba apophenia dolphin Shibuya savant tattoo boy plastic franchise alcohol otaku otaku towards woman. computer augmented reality knife A.I. dolphin corporation Shibuya neon semiotics towards long-chain hydrocarbons kanji wristwatch dolphin film. cartel engine geodesic sentient post- into disposable paranoid saturation point fluidity numinous j-pop weathered franchise cardboard. receding film numinous fluidity A.I. towards drugs face forwards plastic chrome Legba futurity office denim ablative. 
+    </p>
+    </section>
+    <section id="arthurs-seat">
+    <h3>Arthur's Seat</h3>
+    <p>
+      Kanji realism Legba apophenia dolphin Shibuya savant tattoo boy plastic franchise alcohol otaku otaku towards woman. computer augmented reality knife A.I. dolphin corporation Shibuya neon semiotics towards long-chain hydrocarbons kanji wristwatch dolphin film. cartel engine geodesic sentient post- into disposable paranoid saturation point fluidity numinous j-pop weathered franchise cardboard. receding film numinous fluidity A.I. towards drugs face forwards plastic chrome Legba futurity office denim ablative. 
+    </p>
+    </section>
+    <section id="stirling-castle">
+      <h3>Stirling Castle</h3>
+      <p>
+        Kanji realism Legba apophenia dolphin Shibuya savant tattoo boy plastic franchise alcohol otaku otaku towards woman. computer augmented reality knife A.I. dolphin corporation Shibuya neon semiotics towards long-chain hydrocarbons kanji wristwatch dolphin film. cartel engine geodesic sentient post- into disposable paranoid saturation point fluidity numinous j-pop weathered franchise cardboard. receding film numinous fluidity A.I. towards drugs face forwards plastic chrome Legba futurity office denim ablative. 
+    </p>
+    </section>
+    <section id="linlithgow-palace">
+      <h3>Linlithgow Palace</h3>
+      <p>
+        Kanji realism Legba apophenia dolphin Shibuya savant tattoo boy plastic franchise alcohol otaku otaku towards woman. computer augmented reality knife A.I. dolphin corporation Shibuya neon semiotics towards long-chain hydrocarbons kanji wristwatch dolphin film. cartel engine geodesic sentient post- into disposable paranoid saturation point fluidity numinous j-pop weathered franchise cardboard. receding film numinous fluidity A.I. towards drugs face forwards plastic chrome Legba futurity office denim ablative. 
+    </p>
+    </section>
+    <section id="south-queensferry">
+      <h3>South Queensferry</h3>
+      <p>
+        Kanji realism Legba apophenia dolphin Shibuya savant tattoo boy plastic franchise alcohol otaku otaku towards woman. computer augmented reality knife A.I. dolphin corporation Shibuya neon semiotics towards long-chain hydrocarbons kanji wristwatch dolphin film. cartel engine geodesic sentient post- into disposable paranoid saturation point fluidity numinous j-pop weathered franchise cardboard. receding film numinous fluidity A.I. towards drugs face forwards plastic chrome Legba futurity office denim ablative. 
+    </p>
+    </section>
+    <section id="inchcolm">
+    <h3>Inchcolm Abbey</h3>
+    <p>
+      Kanji realism Legba apophenia dolphin Shibuya savant tattoo boy plastic franchise alcohol otaku otaku towards woman. computer augmented reality knife A.I. dolphin corporation Shibuya neon semiotics towards long-chain hydrocarbons kanji wristwatch dolphin film. cartel engine geodesic sentient post- into disposable paranoid saturation point fluidity numinous j-pop weathered franchise cardboard. receding film numinous fluidity A.I. towards drugs face forwards plastic chrome Legba futurity office denim ablative. 
+    </p>
+    </section>
+</div>
+<script>
+	mapboxgl.accessToken = 'pk.eyJ1IjoidHNhcmRpbmVzIiwiYSI6ImNrNG9vNHJvczNma3Qza282anE3eWcwczMifQ.StkJPwbsd7CQfdI5O3dKcg';
+    var map = new mapboxgl.Map({
+        container: 'map',
+        style: 'mapbox://styles/mapbox/streets-v11',
+        center: [-3.367696, 55.949163],
+        zoom: 15.5,
+        bearing: 27,
+        pitch: 45
+    });
+
+    var chapters = {
+        'airport': {
+            bearing: 27,
+            center: [-3.367696, 55.949163],
+            zoom: 15.5,
+            pitch: 20
+        },
+        'city-centre': {
+          bearing: 27,
+          center: [-3.190767, 55.949510],
+          zoom: 15.5,
+          pitch: 20
+        },
+        'edinburgh-castle': {
+            bearing: 27,
+            center: [-3.200387, 55.948555],
+            zoom: 15.5,
+            pitch: 20
+        },
+        'arthurs-seat': {
+            bearing: 27,
+            center: [-3.161794, 55.943858],
+            zoom: 15.5,
+            pitch: 20
+        },
+        'stirling-castle': {
+            bearing: 27,
+            center: [-3.948014, 56.123987], 
+            zoom: 15.5,
+            pitch: 20
+        },
+        'linlithgow-palace': {
+            bearing: 27,
+            center: [-3.600941, 55.978765],
+            zoom: 15.5,
+            pitch: 20
+        },
+        'south-queensferry': {
+            bearing: 27,
+            center: [-3.399445, 55.987119],
+            zoom: 15.5,
+            pitch: 20
+        },
+        'inchcolm': {
+            bearing: 27,
+            center: [-3.300684, 56.030031],
+            zoom: 15.5,
+            pitch: 20
+        }
+    };
+
+    // On every scroll event, check which element is on screen
+    window.onscroll = function() {
+        var chapterNames = Object.keys(chapters);
+        for (var i = 0; i < chapterNames.length; i++) {
+            var chapterName = chapterNames[i];
+            if (isElementOnScreen(chapterName)) {
+                setActiveChapter(chapterName);
+                break;
+            }
+        }
+    };
+
+    var activeChapterName = 'baker';
+    function setActiveChapter(chapterName) {
+        if (chapterName === activeChapterName) return;
+
+        map.flyTo(chapters[chapterName]);
+
+        document.getElementById(chapterName).setAttribute('class', 'active');
+        document.getElementById(activeChapterName).setAttribute('class', '');
+
+        activeChapterName = chapterName;
+    }
+
+    function isElementOnScreen(id) {
+        var element = document.getElementById(id);
+        var bounds = element.getBoundingClientRect();
+        return bounds.top < window.innerHeight && bounds.bottom > 0;
+    }
+    
+</script>
+
 </body>
 </html>
-
-
